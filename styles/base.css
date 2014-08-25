@@ -1,0 +1,32 @@
+@font-face {
+	font-family: Brandon;
+	src: url('fonts/brandon.woff') format('woff'),
+		url('fonts/brandon.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	background-color: #fff;
+	color: #333;
+	font-family: Brandon, Arial, sans-serif;
+	user-select: none;
+}
+
+h1, p {
+	margin: 0;
+}
+
+span:focus {
+	outline: 0;
+}
+
+a,
+a:active
+a:visited {
+	color: #eee;
+}

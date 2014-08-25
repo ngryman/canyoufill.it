@@ -1,0 +1,27 @@
+{
+  "name": "canyoufill.it",
+  "description": "Can you fill it?",
+  "version": "0.0.1",
+  "authors": [
+    "Nicolas Gryman <ngryman@gmail.com> (http://ngryman.sh)",
+    "Jeremy De La Casa <jeremydelacasa@gmail.com> (http://jeremydelacasa.com)"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:tractr/canyoufill.it.git"
+  },
+  "keywords": [],
+  "license": "MIT",
+  "engines": {
+    "node": "0.10.x"
+  },
+  "devDependencies": {
+    "gulp": "^3.8.7",
+    "gulp-autoprefixer": "0.0.8",
+    "gulp-browserify": "^0.5.0",
+    "gulp-concat": "^2.3.4",
+    "gulp-connect": "^2.0.6",
+    "gulp-jshint": "^1.8.4",
+    "jshint-stylish": "^0.4.0"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "name": "canyoufill.it",
+  "main": "index.js",
+  "version": "0.0.1",
+  "authors": [
+    "Nicolas Gryman <ngryman@gmail.com> (http://ngryman.sh)",
+    "Jeremy De La Casa <jeremydelacasa@gmail.com> (http://jeremydelacasa.com)"
+  ],
+  "description": "Can you fill it?",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "vendor"
+  ]
+}
