@@ -4,8 +4,14 @@ var utils = require('./utils');
 
 (function() {
 
-	var TILES_COUNT = 8;
-	var COLORS = ['#90dff8', '#f8c82d', '#fbcf61', '#ff6f6f', '#e3a712', '#e5ba5a', '#d1404a', '#0dccc0', '#a8d164', '#3498db', '#0ead9a', '#27ae60', '#2980b9', '#d49e99', '#b23f73', '#48647c', '#74525f', '#832d51', '#2c3e50', '#e84b3a', '#fe7c60', '#ecf0f1', '#c0392b', '#404148', '#bdc3c7'];
+	var TILES_COUNT = 16;
+	var COLORS = [
+		'90dff8', 'f8c82d', 'fbcf61', 'ff6f6f', 'e3a712',
+		'e5ba5a', 'd1404a', '0dccc0', 'a8d164', '3498db',
+		'0ead9a', '27ae60', '2980b9', 'd49e99', 'b23f73',
+		'48647c', '74525f', '832d51', '2c3e50', 'e84b3a',
+		'fe7c60', 'ecf0f1', 'c0392b', '404148', 'bdc3c7'
+	];
 
 	var el;
 	var tilesEl;
@@ -71,13 +77,22 @@ var utils = require('./utils');
 
 		el = document.querySelector('.choices');
 
+		/// XXX
+		var images = ['empire-state-building.png', 'porsche.png', 'titanic.png', 'tour-eiffel.png'];
+
 		tilesEl = tiles.map(function(tile) {
 			var el = tile.el = document.createElement('div');
 			el.classList.add(
 				'choice',
 				null != tile.orientation ? (tile.orientation ? 'h' : 'v') + '-rectangle' : 'square'
 			);
-			el.style.background = COLORS[utils.random() * COLORS.length | 0];
+			el.style.backgroundColor = '#' + COLORS[utils.random() * COLORS.length | 0];
+
+			if (images.length > 0) {
+				var image = images.shift();
+				el.style.backgroundImage = 'url(images/' + image + ')';
+			}
+
 			fragEl.appendChild(el);
 		});
 

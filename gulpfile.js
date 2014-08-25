@@ -19,6 +19,7 @@ var paths = {
   libs: ['vendor/{,*/}*.js'],
 	styles: ['styles/{,*/}*.css'],
 	fonts: ['fonts/*'],
+	images: ['images/*'],
 	html: ['*.html'],
 	misc: ['favicon.ico', 'logo.png', 'robots.txt', 'humans.txt']
 };
@@ -70,6 +71,12 @@ gulp.task('fonts', function() {
 		.pipe(connect.reload());
 });
 
+gulp.task('images', function() {
+	gulp.src(paths.images)
+		.pipe(gulp.dest('./dist/images'))
+		.pipe(connect.reload());
+});
+
 gulp.task('html', function() {
 	gulp.src(paths.html)
 		.pipe(gulp.dest('./dist'))
@@ -90,4 +97,4 @@ gulp.task('watch', function() {
 	gulp.watch(paths.misc, ['misc']);
 });
 
-gulp.task('default', ['lint', 'scripts', 'libs', 'styles', 'fonts', 'html', 'misc', 'connect', 'watch']);
+gulp.task('default', ['lint', 'scripts', 'libs', 'styles', 'fonts', 'images', 'html', 'misc', 'connect', 'watch']);
