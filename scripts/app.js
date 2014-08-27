@@ -78,30 +78,33 @@ var utils = require('./utils');
 		el = document.querySelector('.choices');
 
 		/// XXX
-		var images = ['empire-state-building.png', 'porsche.png', 'titanic.png', 'tour-eiffel.png'];
+		var images = ['empire-state-building.svg', 'porsche.svg', 'titanic.svg', 'eiffel-tower.svg'];
 
-		tilesEl = tiles.map(function(tile) {
-			var el = tile.el = document.createElement('div');
-			el.classList.add(
-				'choice',
-				null != tile.orientation ? (tile.orientation ? 'h' : 'v') + '-rectangle' : 'square'
-			);
-			el.style.backgroundColor = '#' + COLORS[utils.random() * COLORS.length | 0];
+		tilesEl = tiles
+			.map(function(tile, i) {
+				var el = tile.el = document.createElement('div');
+				el.classList.add(
+					'choice',
+					null != tile.orientation ? (tile.orientation ? 'h' : 'v') + '-rectangle' : 'square'
+				);
+				el.style.backgroundColor = '#' + COLORS[utils.random() * COLORS.length | 0];
 
-			if (images.length > 0) {
-				var image = images.shift();
-				el.style.backgroundImage = 'url(images/' + image + ')';
-			}
+				/// XXX
+				if (images.length > 0) {
+					var image = images.shift();
+					el.style.backgroundImage = 'url(images/' + image + ')';
+				}
 
-			fragEl.appendChild(el);
-		});
+				fragEl.appendChild(el);
+			});
 
 		el.appendChild(fragEl);
 	}
 
 	function resize() {
-		var w = window.innerWidth / width;
-		var h = window.innerHeight / height;
+		var style = getComputedStyle(el, null);
+		var w = parseInt(style.getPropertyValue('width')) / width;
+		var h = parseInt(style.getPropertyValue('height')) / height;
 
 		tiles.forEach(function(tile) {
 			var el = tile.el;

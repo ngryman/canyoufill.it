@@ -10,10 +10,12 @@ body {
 }
 
 main {
+	/* padding: .2vmin; */
 	height: 100%;
 }
 
 section {
+	/* position: relative; */
 	display: flex;
 	height: 100%;
 }
