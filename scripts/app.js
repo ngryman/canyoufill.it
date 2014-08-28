@@ -47,13 +47,13 @@ var utils = require('./utils');
 		var h = height;
 		var left = TILES_COUNT / 2;
 		var m = new Array(w * h);
+		var o = true;
 
 		// random position rectangles
 		do {
 			var x = utils.random() * w | 0;
 			var y = utils.random() * h | 0;
 			var s = y * w;
-			var o = utils.random() < .5;
 
 			if (m[x + s]) continue;
 			if (x + !!o == w || y + !o == h) continue;
@@ -62,7 +62,9 @@ var utils = require('./utils');
 			m[x + s] = true;
 			m[x + !!o + s + w * !o] = true;
 			tiles.push({ x: x, y: y, orientation: o });
+
 			left--;
+			o = !o;
 		} while (left > 0);
 
 		// then fill with squares
