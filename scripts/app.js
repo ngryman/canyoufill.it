@@ -100,15 +100,16 @@ var utils = require('./utils');
 				el.style.backgroundImage = 'url(images/' + url + ')';
 			}
 
-			fragEl.appendChild(el);
-		});
+            fragEl.appendChild(el);
+        });
 
 		el.appendChild(fragEl);
 	}
 
 	function resize() {
-		var w = window.innerWidth / width;
-		var h = window.innerHeight / height;
+		var style = getComputedStyle(el, null);
+		var w = parseInt(style.getPropertyValue('width')) / width;
+		var h = parseInt(style.getPropertyValue('height')) / height;
 
 		tiles.forEach(function(tile) {
 			var el = tile.el;

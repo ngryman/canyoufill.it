@@ -1,5 +1,8 @@
 .choice {
 	position: absolute;
+	border: .3vmin solid #fff;
+	padding: 6vmin;
 	background-repeat: no-repeat;
 	background-position: center;
+	background-origin: content-box;
 }
