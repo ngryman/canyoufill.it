@@ -51,6 +51,14 @@ var random = function() {
 	};
 }();
 
+function createSheet() {
+	var styleEl = document.createElement('style');
+	styleEl.appendChild(document.createTextNode('')); // webkit hack
+	document.head.appendChild(styleEl);
+	return styleEl.sheet;
+}
+
 module.exports = {
-	random: random
+	random: random,
+	createSheet: createSheet
 };

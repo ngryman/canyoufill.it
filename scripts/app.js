@@ -1,8 +1,8 @@
 'use strict';
 
-var utils = require('./utils');
-
 (function() {
+
+	var utils = require('./utils');
 
 	var TILES_COUNT = 16;
 	var COLORS = [
@@ -22,6 +22,7 @@ var utils = require('./utils');
 	var tilesEl;
 	var width = 0, height = 0;
 	var tiles = [];
+	var sheet;
 
 	function init() {
 		initAttributes();
@@ -60,12 +61,13 @@ var utils = require('./utils');
 			var y = utils.random() * h | 0;
 			var s = y * w;
 
+			if (0 == x && 0 == y) continue;
 			if (m[x + s]) continue;
-			if (x + !!o == w || y + !o == h) continue;
-			if (m[x + !!o + s + w * !o]) continue;
+			if (x + o == w || y + !o == h) continue;
+			if (m[x + o + s + w * !o]) continue;
 
 			m[x + s] = true;
-			m[x + !!o + s + w * !o] = true;
+			m[x + o + s + w * !o] = true;
 			tiles.push({ x: x, y: y, orientation: o });
 
 			left--;
@@ -90,7 +92,9 @@ var utils = require('./utils');
 			var el = tile.el = document.createElement('div');
 			el.classList.add(
 				'choice',
-				isRect ? (tile.orientation ? 'h' : 'v') + '-rectangle' : 'square'
+				isRect ? (tile.orientation ? 'h' : 'v') + '-rectangle' : 'square',
+				'col-' + (tile.x + 1),
+				'row-' + (tile.y + 1)
 			);
 			el.style.backgroundColor = '#' + COLORS[utils.random() * COLORS.length | 0];
 
@@ -101,6 +105,7 @@ var utils = require('./utils');
 			}
 
             fragEl.appendChild(el);
+			return el;
         });
 
 		el.appendChild(fragEl);
@@ -108,15 +113,23 @@ var utils = require('./utils');
 
 	function resize() {
 		var style = getComputedStyle(el, null);
-		var w = parseInt(style.getPropertyValue('width')) / width;
-		var h = parseInt(style.getPropertyValue('height')) / height;
+		var w = Math.round(parseInt(style.getPropertyValue('width')) / width);
+		var h = Math.round(parseInt(style.getPropertyValue('height')) / height);
+		var i;
 
-		tiles.forEach(function(tile) {
-			var el = tile.el;
-			el.style.width = Math.ceil(w + (null != tile.orientation ? (tile.orientation ? w : 0) : 0)) + 'px';
-			el.style.height = Math.ceil(h + (null != tile.orientation ? (tile.orientation ? 0 : h) : 0)) + 'px';
-			el.style.transform = 'translate(' + (tile.x * w) + 'px, ' + (tile.y * h) + 'px)';
-		});
+		if (!sheet) sheet = utils.createSheet();
+
+		// flush old rules
+		while (sheet.cssRules.length > 0) sheet.deleteRule(0);
+
+		sheet.insertRule('.choice.square { width: ' + w + 'px; height: ' + h + 'px; }', 0);
+		sheet.insertRule('.choice.h-rectangle { width: ' + (w * 2) + 'px; height: ' + h + 'px; }', 0);
+		sheet.insertRule('.choice.v-rectangle { width: ' + w + 'px; height: ' + (h * 2) + 'px; }', 0);
+
+		for (i = 0; i < width; i++)
+			sheet.insertRule('.choice.col-' + (i + 1) + '{ left: ' + (w * i) + 'px }', 0);
+		for (i = 0; i < height; i++)
+			sheet.insertRule('.choice.row-' + (i + 1) + '{ top: ' + (h * i) + 'px }', 0);
 	}
 
 	function trialDivision(n) {
